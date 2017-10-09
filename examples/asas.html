@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *
+        {
+            margin:0;
+            padding:0;
+        }
+        body
+        {
+            background:gray;
+        }
+        .fire
+        {
+            width: 10px;
+            height:10px;
+            border-radius: 50%;
+            position:absolute;
+            bottom:0;
+            background:red;
+        }
+        .flower
+        {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            position:absolute;
+        }
+    </style>
+</head>
+<body>
+</body>
+<script>
+    var color=["red","yellow","blue","green","orange","cyan","pink"];
+    document.onclick=function(e)
+    {
+        var e=e||window.event;
+        var timer=null;
+        var top= e.clientY;
+        var left= e.clientX;
+        var div=document.createElement("div");
+        div.className="fire";
+        div.style.left= e.clientX+"px";
+        document.body.appendChild(div);
+        timer=setInterval(function(){
+            if(div.offsetTop<top)
+            {
+                clearInterval(timer);
+                document.body.removeChild(div);
+                var num=Math.ceil(Math.random())*10+10;
+                for(var i=0;i<num;i++)
+                {
+                    flower(left,top);
+                }
+            }
+            else
+            {
+                div.style.top=div.offsetTop-5+"px";
+            }
+        },30);
+    };
+    function flower(l,t)
+    {
+        var c=Math.floor(Math.random()*7);
+        var timer=null;
+        var odiv=document.createElement("div");
+        var z=Math.ceil(Math.random()*3);
+        var y=Math.ceil(Math.random()*3)+1;
+        odiv.className="flower";
+        odiv.style.background=color[c];
+        odiv.style.left=l+"px";
+        odiv.style.top=t+"px";
+        document.body.appendChild(odiv);
+        var h=Math.ceil(Math.random()*50)+100;
+        var n=0;
+        var m=0;
+        if(Math.random()<0.5)
+        {
+            if(Math.random()<0.5)
+            {
+                timer=setInterval(function()
+                {
+                    n++;
+                    if(n%20==0)
+                    {
+                        y++;
+                    }
+                    odiv.style.left=odiv.offsetLeft-z+"px";
+                    odiv.style.top=odiv.offsetTop+y+"px";
+                    if(Math.abs(l-odiv.offsetLeft)>200||Math.abs(t-odiv.offsetTop)>200)
+                    {
+                        clearInterval(timer);
+                        document.body.removeChild(odiv);
+                    }
+                },30);
+            }
+            else
+            {
+                timer=setInterval(function()
+                {
+                    m++;
+                    if(m%10==0)
+                    {
+                        y--;
+                    }
+                    odiv.style.left=odiv.offsetLeft-z+"px";
+                    odiv.style.top=odiv.offsetTop-y+"px";
+                    if(Math.abs(l-odiv.offsetLeft)>200||Math.abs(t-odiv.offsetTop)>200)
+                    {
+                        clearInterval(timer);
+                        document.body.removeChild(odiv);
+                    }
+                    if(y==0)
+                    {
+                        y=1;
+                        clearInterval(timer);
+                        timer=setInterval(function()
+                        {
+                            n++;
+                            if(n%20==0)
+                            {
+                                y++;
+                            }
+                            odiv.style.left=odiv.offsetLeft-z+"px";
+                            odiv.style.top=odiv.offsetTop+y+"px";
+                            if(Math.abs(l-odiv.offsetLeft)>200||Math.abs(t-odiv.offsetTop)>200)
+                            {
+                                clearInterval(timer);
+                                document.body.removeChild(odiv);
+                            }
+                        },30);
+                    }
+                },30);
+            }
+        }
+        else
+        {
+            if(Math.random()<0.5)
+            {
+                timer=setInterval(function()
+                {
+                    n++;
+                    if(n%20==0)
+                    {
+                        y++;
+                    }
+                    odiv.style.left=odiv.offsetLeft+z+"px";
+                    odiv.style.top=odiv.offsetTop+y+"px";
+                    if(Math.abs(l-odiv.offsetLeft)>200||Math.abs(t-odiv.offsetTop)>200)
+                    {
+                        clearInterval(timer);
+                        document.body.removeChild(odiv);
+                    }
+                },30);
+            }
+            else
+            {
+                timer=setInterval(function()
+                {
+                    m++;
+                    if(m%10==0)
+                    {
+                        y--;
+                    }
+                    odiv.style.left=odiv.offsetLeft+z+"px";
+                    odiv.style.top=odiv.offsetTop-y+"px";
+                    if(Math.abs(l-odiv.offsetLeft)>200||Math.abs(t-odiv.offsetTop)>200)
+                    {
+                        clearInterval(timer);
+                        document.body.removeChild(odiv);
+                    }
+                    if(y==0)
+                    {
+                        y=1;
+                        clearInterval(timer);
+                        timer=setInterval(function()
+                        {
+                            n++;
+                            if(n%20==0)
+                            {
+                                y=y+1;
+                            }
+                            odiv.style.left=odiv.offsetLeft+z+"px";
+                            odiv.style.top=odiv.offsetTop+y+"px";
+                            if(Math.abs(l-odiv.offsetLeft)>200||Math.abs(t-odiv.offsetTop)>200)
+                            {
+                                clearInterval(timer);
+                                document.body.removeChild(odiv);
+                            }
+                        },30);
+                    }
+                },30);
+            }
+        }
+    }
+</script>
+</html>
